@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Test Background Image</title>
+  <style>
+    body {
+      margin: 0;
+      background: #fff;
+      height: 100vh;
+      overflow: hidden;
+    }
+
+    .photo {
+      width: 200px;
+      height: 250px;
+      position: absolute;
+      background-size: cover;
+      background-position: center;
+      opacity: 0;
+      transform: scale(0.8);
+      transition: all 0.6s ease;
+      border-radius: 10px;
+      box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
+      cursor: pointer;
+    }
+
+    .photo.show {
+      opacity: 1;
+      transform: scale(1);
+    }
+  </style>
+</head>
+<body>
+  <div class="photo" style="background-image: url('./PFImages/Mutafro1.jpeg');"></div>
+
+  <script>
+    window.onload = () => {
+      const photo = document.querySelector('.photo');
+
+      // Manually specify width/height since background images don't preload dimensions
+      const photoWidth = 200;
+      const photoHeight = 250;
+
+      const centerX = window.innerWidth / 2 - photoWidth / 2;
+      const centerY = window.innerHeight / 2 - photoHeight / 2;
+
+      photo.style.left = `${centerX}px`;
+      photo.style.top = `${centerY}px`;
+      photo.classList.add('show');
+
+      console.log("Background image div is now visible and centered.");
+    };
+  </script>
+</body>
+</html>

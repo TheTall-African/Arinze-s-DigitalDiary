@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Digital Fashion Diary</title>
+    <style>
+        body {
+            margin: 0;
+            background-color: #fff;
+            height: 100vh;
+            display: flex;
+            flex-direction: column; /* Ensure elements stack vertically */
+            justify-content: center;
+            align-items: center;
+            overflow: hidden;
+        }
+
+        .photo-stack {
+            position: relative;
+            width: 400vw;
+            height: 400vh;
+            display: flex;
+            flex-wrap: wrap;
+            align-items: center;
+            justify-content: center;
+            gap: 20px;
+            padding: 20px;
+        }
+
+        .photo {
+            position: absolute;
+            width: 200px;
+            height: 250px;
+            background-size: cover;
+            background-position: center;
+            border-radius: 10px;
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
+            cursor: pointer;
+            /*transition: transform 0.4s ease, z-index 0.3s ease; */
+            opacity: 0;
+            transform: scale(0.8);
+            transition: 
+                opacity 0.6s ease,
+                transform 0.6s ease,
+                left 0.6s ease,
+                z-index 0.3s ease,
+                top 0.6s ease;
+        }
+
+        .photo.show{
+            opacity: 1;
+            transform: scale(1) ;
+        }
+        .photo:hover {
+            transform: translateY(-40px) scale(1.05);
+            z-index: 10;
+        }
+
+        h1 {
+            margin-top: 20px;
+            font-family: 'Gill Sans', 'Gill Sans MT', Calibri, sans-serif;
+        }
+    </style>
+</head>
+<body>
+    <div class="photo-stack">
+        <div class="photo" style="background-image: url('PFImages/Mutafro1.jpeg');"></div>
+        <div class="photo" style="background-image: url('PFImages/Mutafro2.jpeg');"></div>
+        <div class="photo" style="background-image: url('PFImages/MutAfro3.jpeg');"></div>
+        <div class="photo" style="background-image: url('PFImages/MutAfro4.jpeg');"></div>
+        <div class="photo" style="background-image: url('PFImages/MutAfro5.jpeg');"></div>
+        
+
+    <script> 
+document.addEventListener("DOMContentLoaded", () => {
+    const photos = document.querySelectorAll('.photo');
+    // selects all elements with the class 'photo'
+
+    const viewportWidth = window.innerWidth;
+    const viewportHeight = window.innerHeight;
+    // gets width and height of the viewport, which is the visible area of the browser user can see
+
+    //using the constant we made earlier=> photos, we iterate over all them, each of them
+    photos.forEach(photo => {
+
+        //gets width and height of this individual photo first
+        const photoWidth = photo.offsetWidth;
+        const photoHeight = photo.offsetHeight;
+
+        //to keep the photo within the viewport,which is the area on the screen the user can see, we calculate these values
+        const centerX = viewportWidth/2 -photoWidth/2;
+        const centerY = viewportHeight/2 - photoHeight/2;
+
+        const offsetRange = 60;//specifies my area of the pics dump in the middle
+        //using allowed range(max value per position) from up there, we derive the possible random positions for the photo
+        const randomLeft = centerX + (Math.random() - 0.5) * offsetRange;
+        const randomTop = centerY + (Math.random() - 0.5) * offsetRange;
+
+        photo.style.position = 'absolute'; //locks in the photo to whatever position it is given
+
+        photo.style.left = `${randomLeft}px`;
+        photo.style.top = `${randomTop}px`; //these will then apply the randomly generated positions to the left and top positions of the pic
+        photo.classList.add('show');
+        
+        });
+    });</script>
+
+    <h1>Portfolio</h1>
+    <!--<script src="http://localhost:8080/scripts.js" defer></script> -->
+</body>
+</html>

@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Digital Fashion Diary</title>
+    <style>
+        body {
+            margin: 0;
+            background-color: #fff;
+            height: 100vh;
+            display: flex;
+            flex-direction: column; /* Ensure elements stack vertically */
+            justify-content: center;
+            align-items: center;
+            overflow: hidden;
+        }
+
+        .photo-stack {
+            position: relative;
+            width: 100%;
+            height: 100%;
+            display: grid;
+            place-items:center;  /* causes pics to center in middle with above code: grid */
+            align-items: center;
+            justify-content: center;
+            gap: 20px;
+            padding: 20px;
+        }
+
+        .photo {
+            position: absolute;
+            
+            border-radius: 10px;
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
+            cursor: pointer;
+            /*transition: transform 0.4s ease, z-index 0.3s ease; */
+            opacity: 0;
+            transform: scale(0.8);
+            transition: 
+                opacity 0.6s ease,
+                transform 0.6s ease,
+                left 0.6s ease,
+                z-index 0.3s ease,
+                top 0.6s ease;
+        }
+
+        .photo:hover {
+            transform: translateY(-40px) scale(1.05);
+            z-index: 10;
+        }
+
+        .photo img {
+            display: block;
+            max-width: 90vw; /*this means the width of the images will be 90% of the screen */
+            max-height: 80vh;
+            
+        }
+
+        .photo.show {
+            opacity: 1;
+            transform: scale(1);
+        }
+
+
+        h1 {
+            margin-top: 20px;
+            font-family: 'Gill Sans', 'Gill Sans MT', Calibri, sans-serif;
+        }
+    </style>
+</head>
+<body>
+    <div class="photo-stack">
+        <div class="photo"> <img src="PFImages/Mutafro1.jpeg" /> </div>
+        <div class="photo"> <img src="PFImages/Mutafro2.jpeg" /> </div>
+        <div class="photo"> <img src="PFImages/Mutafro3.jpeg" /> </div>
+        <div class="photo"> <img src="PFImages/Mutafro4.jpeg" /> </div>
+        <div class="photo"> <img src="PFImages/Mutafro5.jpeg" /> </div>
+    </div>
+
+
+    <script> 
+    window.onload =() => {
+
+        console.log("✅ JavaScript is running!");
+
+        const photos = document.querySelectorAll('.photo');
+        // selects all elements with the class 'photo'
+        const viewportWidth = window.innerWidth;
+        const viewportHeight = window.innerHeight;
+        // gets width and height of the viewport, which is the visible area of the browser user can see
+
+        const baseX = viewportWidth/2;
+        const baseY = viewportHeight / 2;
+        const offsetStep = 20;//this is how much space btw each pic
+
+        //using the constant we made earlier=> photos, we iterate over all them, each of them
+        photos.forEach((photo, index) => {
+            const img = photo.querySelector("img");
+
+            //gets width and height of this individual photo first
+            const photoWidth = img.naturalWidth * (img.clientWidth/img.naturalWidth);
+            const photoHeight = img.naturalHeight * (img.clientHeight/ img.naturalHeight);
+
+            //to keep the photo within the viewport,which is the area on the screen the user can see, we calculate these values
+            const offsetX = (index - photos.length/2) * offsetStep;
+            const offsetY = (index - photos.length/2) * offsetStep;
+
+            const left = baseX - photoWidth/2 + offsetX;
+            const top = baseY- photoHeight/2 + offsetY;
+
+            photo.style.left = `${left}px`;
+            photo.style.top = `${top}px`;
+          
+            photo.classList.add('show');
+
+            
+            });
+    };
+
+    </script>
+
+    <h1>Portfolio</h1>
+    
+</body>
+</html>
